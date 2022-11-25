@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace SimpleCalc.Models
 {
-    public class Calculator
+    public class Params
     {
         [Required]
-        public double value1 { get; set; }
+        public double Value1 { get; set; }
 
         [Required]
-        public double value2 { get; set; }
+        public double Value2 { get; set; }
     }
 }

@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using SimpleCalc.Models;
+using SimpleCalc.Interfaces;
+using SimpleCalc.Services;
 
 namespace SimpleCalc.Controllers
 {
@@ -11,45 +13,109 @@ namespace SimpleCalc.Controllers
     public class CalculatorController : Controller
     {
         private readonly ILogger<CalculatorController> _logger;
-        public CalculatorController(ILogger<CalculatorController> logger)
+        private readonly ICalculationService _calculationService;
+
+        public CalculatorController(ILogger<CalculatorController> logger,
+            ICalculationService calculationService)
         {
             _logger = logger;
+            _calculationService = calculationService;
         }
+
+        /// <summary>
+        /// Сложение
+        /// </summary>
+        /// <param name="cal"></param>
+        /// <returns></returns>
         [HttpPost("addition")]
-        public IActionResult Add(Calculator cal)
+        public IActionResult Add(Params cal)
         {
-            double a, b;
-            a = cal.value1;
-            b = cal.value2;
-            return Ok(a + b);
+            var res = _calculationService.Add(cal.Value1, cal.Value2);
 
+            string str = $"Сложение числа " +
+                $"{cal.Value1} и числа {cal.Value2} = {res}";
+
+            return Ok(str);
         }
 
+        /// <summary>
+        /// Вычитание
+        /// </summary>
+        /// <param name="cal"></param>
+        /// <returns></returns>
         [HttpPost("difference")]
-        public IActionResult Dif(Calculator cal)
+        public IActionResult Dif(Params cal)
         {
-            double a, b;
-            a = cal.value1;
-            b = cal.value2;
-            return Ok(a - b);
+            var res = _calculationService.Sub(cal.Value1, cal.Value2);
+
+            string str = $"Результат вычитания из числа " +
+                $"{cal.Value1} число {cal.Value2} = {res}";
+
+            return Ok(str);
         }
+
+        /// <summary>
+        /// Умножение
+        /// </summary>
+        /// <param name="cal"></param>
+        /// <returns></returns>
         [HttpPost("multiplication")]
-        public IActionResult Mul(Calculator cal)
+        public IActionResult Mul(Params cal)
         {
-            double a,b;
-            a = cal.value1;
-            b = cal.value2;
-            return Ok(a * b);
+            var res = _calculationService.Mul(cal.Value1, cal.Value2);
+
+            string str = $"Результат умножения числа " +
+                $"{cal.Value1} на число {cal.Value2} = {res}";
+
+            return Ok(str);
         }
+
+        /// <summary>
+        /// Деление
+        /// </summary>
+        /// <param name="cal"></param>
+        /// <returns></returns>
         [HttpPost("division")]
-        public IActionResult Div(Calculator cal)
+        public IActionResult Div(Params cal)
         {
-            double a, b;
-            a = cal.value1;
-            b = cal.value2;
-            return Ok(a / b);
+            var res = _calculationService.Div(cal.Value1, cal.Value2);
+
+            string str = $"Результат деления числа " +
+                $"{cal.Value1} на число {cal.Value2} = {res}";
+
+            return Ok(str);
         }
-        
-        
+
+        /// <summary>
+        /// Взятие корня
+        /// </summary>
+        /// <param name="cal"></param>
+        /// <returns></returns>
+        [HttpPost("Root")]
+        public IActionResult Sqrt(Params cal)
+        {
+            var res = _calculationService.Sqrt(cal.Value1, cal.Value2);
+
+            string str = $"Результат возведения  в степень 1/" + 
+                $"{cal.Value2} числа {cal.Value1} = {res}";
+
+            return Ok(str);
+        }
+
+        /// <summary>
+        /// Возведение в степень
+        /// </summary>
+        /// <param name="cal"></param>
+        /// <returns></returns>
+        [HttpPost("Pow")]
+        public IActionResult Pow(Params cal)
+        {
+            var res = _calculationService.Pow(cal.Value1, cal.Value2);
+
+            string str = $"Результат возведения в степень " +
+                $"{cal.Value2} числа {cal.Value1} = {res}";
+
+            return Ok(str);
+        }
     }
 }
