@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using SimpleCalc.Models;
 using SimpleCalc.Interfaces;
 using SimpleCalc.Services;
+using SimpleCalc.Data;
 
 namespace SimpleCalc.Controllers
 {
@@ -16,7 +17,7 @@ namespace SimpleCalc.Controllers
         private readonly ICalculationService _calculationService;
 
         public CalculatorController(ILogger<CalculatorController> logger,
-            ICalculationService calculationService)
+            ICalculationService calculationService, CalculatorDbContext context)
         {
             _logger = logger;
             _calculationService = calculationService;
@@ -96,7 +97,7 @@ namespace SimpleCalc.Controllers
         {
             var res = _calculationService.Sqrt(cal.Value1, cal.Value2);
 
-            string str = $"Результат возведения  в степень 1/" + 
+            string str = $"Результат возведения  в степень 1/" +
                 $"{cal.Value2} числа {cal.Value1} = {res}";
 
             return Ok(str);
@@ -117,5 +118,6 @@ namespace SimpleCalc.Controllers
 
             return Ok(str);
         }
+
     }
 }
