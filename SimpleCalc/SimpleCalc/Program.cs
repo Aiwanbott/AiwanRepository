@@ -15,12 +15,14 @@ using Microsoft.EntityFrameworkCore;
         builder.Services.AddSwaggerGen();
 
         builder.Services.AddTransient<ICalculationService, CalculationService>();
-var connectionsString = builder.Configuration.GetConnectionString("Server=localhost;Database=CalcaulatorDb;User Id=dbo;Password=123dog123;Trusted_Connection=True;MultiSubnetFailover=True;TrustServerCertificate=true;MultipleActiveResultSets=true");
+//    builder.Services.AddDbContext<CalculatorDbContext>(options =>
+//options.UseSqlServer(builder.Configuration.GetConnectionString("Server=(localdb)\\mssqllocaldb;Database=SimpleCalc.Data;Trusted_Connection=True;MultipleActiveResultSets=true")));
+var connectionsString = builder.Configuration.GetConnectionString("CalculatorDbContext");
 builder.Services.AddDbContext<CalculatorDbContext>(options =>
 {
     options.UseSqlServer(connectionsString);
 }, ServiceLifetime.Transient);
-    
+
 
 //builder.Services.AddDbContext<CalculatorDbContext>(options => options.UseSqlServer("Server=(localdb)\\MSSQLLocalDB;Database=CalcaulatorDb;Trusted_Connection=True;MultipleActiveResultSets=true"));
 

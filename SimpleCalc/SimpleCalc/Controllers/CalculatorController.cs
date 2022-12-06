@@ -17,7 +17,7 @@ namespace SimpleCalc.Controllers
         private readonly ICalculationService _calculationService;
 
         public CalculatorController(ILogger<CalculatorController> logger,
-            ICalculationService calculationService, CalculatorDbContext context)
+            ICalculationService calculationService)
         {
             _logger = logger;
             _calculationService = calculationService;

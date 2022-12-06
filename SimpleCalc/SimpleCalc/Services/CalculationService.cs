@@ -23,25 +23,101 @@ namespace SimpleCalc.Services
                 ActionType = "Add",
                 Result = (decimal)result
             };
-
-            using var _context = new CalculatorDbContext();
-
             _context.Calculations.Add(calculation);
             _context.SaveChanges();
 
             return result;
         }
 
-        public double Div(double value1, double value2) => value1 / value2;
+        public double Div(double value1, double value2)
+        {
+            var result = value1 / value2;
 
-        public double Mul(double value1, double value2) => value1 * value2;
+            var calculation = new Calculation
+            {
+                Param1 = (decimal)value1,
+                Param2 = (decimal)value2,
+                ActionType = "Div",
+                Result = (decimal)result
+            };
+            _context.Calculations.Add(calculation);
+            _context.SaveChanges();
 
-        public double Pow(double value, double precision) => Math.Pow(value, precision);
+            return result;
+        }
 
-        public double Sqrt(double value, double precision) => Math.Pow(value, 1 / precision);
 
-        public double Sub(double value1, double value2) => value1 - value2;
+        public double Mul(double value1, double value2)
+        {
+            var result = value1 * value2;
+            var calculation = new Calculation
+            {
+                Param1 = (decimal)value1,
+                Param2 = (decimal)value2,
+                ActionType = "Mul",
+                Result = (decimal)result
+            };
+            _context.Calculations.Add(calculation);
+            _context.SaveChanges();
+
+            return result;
+        }
+
+
+
+        public double Pow(double value, double precision)
+        {
+            var result = Math.Pow(value, precision);
+            var calculation = new Calculation
+            {
+                Param1 = (decimal)value,
+                Param2 = (decimal)precision,
+                ActionType = "Pow",
+                Result = (decimal)result
+            };
+            _context.Calculations.Add(calculation);
+            _context.SaveChanges();
+
+            return result;
+        }
+
+
+        public double Sqrt(double value, double precision)
+        {
+            var result = Math.Pow(value, 1 / precision);
+            var calculation = new Calculation
+            {
+                Param1 = (decimal)value,
+                Param2 = (decimal)precision,
+                ActionType = "Sqrt",
+                Result = (decimal)result
+            };
+            _context.Calculations.Add(calculation);
+            _context.SaveChanges();
+
+            return result;
+        }
+
+
+
+        public double Sub(double value1, double value2)
+        {
+            var result = value1 - value2;
+            var calculation = new Calculation
+            {
+                Param1 = (decimal)value1,
+                Param2 = (decimal)value2,
+                ActionType = "Div",
+                Result = (decimal)result
+            };
+            _context.Calculations.Add(calculation);
+            _context.SaveChanges();
+
+            return result;
+        }
+
+
 
     }
-   
+
 }
